@@ -4,12 +4,9 @@ import com.leo.sample.service.HelloWorldService;
 import com.vaadin.annotations.VaadinServletConfiguration;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
-import com.vaadin.ui.Label;
-import com.vaadin.ui.UI;
-import com.vaadin.ui.VerticalLayout;
+import com.vaadin.ui.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
-import org.springframework.stereotype.Component;
 
 import javax.servlet.annotation.WebServlet;
 
@@ -31,8 +28,18 @@ public class HelloPage extends UI {
     @Override
     protected void init(VaadinRequest vaadinRequest) {
 
-        VerticalLayout layout = new VerticalLayout();
+        final VerticalLayout layout = new VerticalLayout();
         layout.addComponent(new Label(helloWorldService.getHelloWorld()));
         setContent(layout);
+
+        Button button = new Button("click me");
+        button.addClickListener(new Button.ClickListener() {
+            @Override
+            public void buttonClick(Button.ClickEvent clickEvent) {
+                Notification.show("You click me!");
+            }
+        });
+
+        layout.addComponent(button);
     }
 }
